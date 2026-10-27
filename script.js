@@ -1,119 +1,174 @@
 (() => {
-  const menuButton = document.getElementById('menuButton');
-  const mobileNav = document.getElementById('mobileNav');
+  const body = document.body;
+  const header = document.getElementById('siteHeader');
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const desktopQuery = window.matchMedia('(max-width: 980px)');
 
-  if (menuButton && mobileNav) {
-    const setMenu = (open) => {
-      mobileNav.classList.toggle('open', open);
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.textContent = open ? 'Close' : 'Menu';
-    };
+  /* Header shadow after scrolling */
+  const updateHeader = () => {
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 6);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 
-    menuButton.addEventListener('click', () => {
-      setMenu(!mobileNav.classList.contains('open'));
-    });
+  /* Mobile menu */
+  let menuOpen = false;
 
-    mobileNav.querySelectorAll('a').forEach((link) => {
+  const setMenu = (open, restoreFocus = false) => {
+    if (!menuToggle || !mobileMenu) return;
+    menuOpen = open;
+    body.classList.toggle('menu-open', open);
+    mobileMenu.classList.toggle('is-open', open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+
+    if (open) {
+      const firstLink = mobileMenu.querySelector('a');
+      if (firstLink) {
+        let attempts = 0;
+        const focusFirstLink = () => {
+          if (!menuOpen) return;
+          firstLink.focus({ preventScroll: true });
+          if (document.activeElement !== firstLink && attempts < 12) {
+            attempts += 1;
+            window.setTimeout(focusFirstLink, 30);
+          }
+        };
+        window.setTimeout(focusFirstLink, 20);
+      }
+    } else if (restoreFocus) {
+      menuToggle.focus();
+    }
+  };
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => setMenu(!menuOpen, menuOpen));
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => setMenu(false));
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setMenu(false);
-    });
-
-    const desktop = window.matchMedia('(min-width: 921px)');
-    const closeOnDesktop = (event) => {
-      if (event.matches) setMenu(false);
-    };
-    if (desktop.addEventListener) desktop.addEventListener('change', closeOnDesktop);
-  }
-
-  const rows = Array.from(document.querySelectorAll('.solution-row'));
-  const image = document.getElementById('solutionImage');
-  const caption = document.getElementById('solutionCaption');
-  const fig = document.getElementById('solutionFig');
-
-  if (rows.length && image && caption && fig) {
-    let active = rows.find((row) => row.classList.contains('active')) || rows[0];
-    let swapTimer;
-
-    rows.forEach((row) => {
-      if (row.dataset.image && row.dataset.image !== image.getAttribute('src')) {
-        const preload = new Image();
-        preload.src = row.dataset.image;
+      if (event.key === 'Escape' && menuOpen) {
+        setMenu(false, true);
       }
     });
 
-    const activate = (row) => {
-      if (!row || row === active) return;
-      rows.forEach((item) => item.classList.remove('active'));
-      row.classList.add('active');
-      active = row;
-      window.clearTimeout(swapTimer);
-      image.style.opacity = '0';
-      swapTimer = window.setTimeout(() => {
-        image.src = row.dataset.image;
-        image.alt = row.dataset.alt || row.dataset.caption;
-        caption.innerHTML = row.dataset.caption;
-        fig.textContent = 'Fig. ' + row.dataset.fig;
-        image.style.opacity = '1';
-      }, 140);
-    };
-
-    rows.forEach((row) => {
-      row.addEventListener('mouseenter', () => activate(row));
-      row.addEventListener('focus', () => activate(row));
+    desktopQuery.addEventListener('change', (event) => {
+      if (!event.matches && menuOpen) setMenu(false);
     });
   }
 
-  const form = document.getElementById('contactForm');
-  const serviceSelect = document.getElementById('serviceSelect');
+  /* Product gallery */
+  const gallery = document.querySelector('[data-gallery]');
+  if (gallery) {
+    const main = gallery.querySelector('[data-gallery-main]');
+    const stage = gallery.querySelector('[data-gallery-stage]');
+    const thumbs = [...gallery.querySelectorAll('[data-gallery-thumb]')];
+    const previousButton = gallery.querySelector('[data-gallery-prev]');
+    const nextButton = gallery.querySelector('[data-gallery-next]');
+    let current = 0;
+    let switchTimer;
 
-  if (form && serviceSelect) {
-    const requestedService = new URLSearchParams(window.location.search).get('service');
-    if (requestedService) {
-      const match = Array.from(serviceSelect.options).find((option) => option.value === requestedService);
-      if (match) serviceSelect.value = match.value;
-    }
+    const show = (index) => {
+      if (!main || !thumbs.length) return;
+      const thumb = thumbs[(index + thumbs.length) % thumbs.length];
+      if (!thumb) return;
+      current = thumbs.indexOf(thumb);
 
+      thumbs.forEach((item) => {
+        const active = item === thumb;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+
+      if (stage) stage.classList.add('is-switching');
+      if (switchTimer) window.clearTimeout(switchTimer);
+      switchTimer = window.setTimeout(() => {
+        main.src = thumb.dataset.src;
+        main.alt = thumb.dataset.alt || '';
+        if (thumb.dataset.width) main.width = thumb.dataset.width;
+        if (thumb.dataset.height) main.height = thumb.dataset.height;
+        if (stage) stage.classList.remove('is-switching');
+      }, 110);
+    };
+
+    if (previousButton) previousButton.addEventListener('click', () => show(current - 1));
+    if (nextButton) nextButton.addEventListener('click', () => show(current + 1));
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => show(index));
+      thumb.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          const next = (index + 1) % thumbs.length;
+          thumbs[next].focus();
+          show(next);
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          const previous = (index - 1 + thumbs.length) % thumbs.length;
+          thumbs[previous].focus();
+          show(previous);
+        }
+      });
+    });
+  }
+
+  /* Contact form → WhatsApp */
+  const form = document.getElementById('whatsappForm');
+  if (form) {
+    const nameField = document.getElementById('name');
+    const phoneField = document.getElementById('phone');
+    const topicField = document.getElementById('topic');
+    const messageField = document.getElementById('message');
     const status = document.getElementById('formStatus');
+
+    const topicLabels = {
+      laptop: 'buying a laptop',
+      repair: 'a repair or service',
+      cctv: 'CCTV or networking',
+      other: 'something else',
+    };
+
+    const requestedTopic = new URLSearchParams(window.location.search).get('topic')
+      || new URLSearchParams(window.location.search).get('service');
+
+    if (requestedTopic && topicField) {
+      const alias = requestedTopic === 'buy' ? 'laptop' : requestedTopic;
+      if ([...topicField.options].some((option) => option.value === alias)) {
+        topicField.value = alias;
+      }
+    }
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
-      const data = new FormData(form);
-      const name = String(data.get('name') || '').trim();
-      const phone = String(data.get('phone') || '').trim();
-      const email = String(data.get('email') || '').trim();
-      const message = String(data.get('message') || '').trim();
-      const selected = serviceSelect.options[serviceSelect.selectedIndex];
-      const service = selected ? selected.textContent.trim() : 'General enquiry';
+      if (!form.reportValidity()) return;
 
-      if (!name || !phone || !message) {
-        if (status) status.textContent = 'Please complete your name, phone and message.';
-        return;
-      }
+      const name = nameField.value.trim();
+      const phone = phoneField ? phoneField.value.trim() : '';
+      const topic = topicLabels[topicField.value] || 'a general enquiry';
+      const note = messageField.value.trim();
 
-      const lines = [
-        'Hello BTS,',
-        '',
-        'I would like to enquire about: ' + service + '.',
-        '',
-        'Name: ' + name,
-        'Phone: ' + phone,
-      ];
+      let text = `Hello BTS, my name is ${name}. I'm interested in ${topic}.`;
+      if (phone) text += ` My phone number is ${phone}.`;
+      text += `\n\n${note}`;
 
-      if (email) lines.push('Email: ' + email);
-      lines.push('', 'Message:', message);
+      const url = 'https://wa.me/9779868775155?text=' + encodeURIComponent(text);
+      const waLink = document.createElement('a');
+      waLink.href = url;
+      waLink.target = '_blank';
+      waLink.rel = 'noopener noreferrer';
+      document.body.appendChild(waLink);
+      waLink.click();
+      waLink.remove();
 
-      const url = 'https://wa.me/9779868775155?text=' + encodeURIComponent(lines.join('\n'));
-      if (status) status.textContent = 'Opening WhatsApp with your message…';
-
-      const opened = window.open(url, '_blank');
-      if (opened) {
-        opened.opener = null;
-      } else {
-        window.location.href = url;
+      if (status) {
+        status.textContent = 'Opening WhatsApp with your message…';
+        status.classList.add('is-visible');
       }
     });
   }

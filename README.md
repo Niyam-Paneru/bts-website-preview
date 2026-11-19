@@ -25,6 +25,8 @@ Then visit `http://localhost:8765/`. No install ceremony. The site is HTML, CSS,
 
 A little of the design work: cream/paper backgrounds, dark ink, self-hosted Familjen Grotesk and Atkinson Hyperlegible Next, and galleries controlled by arrows or thumbnails. The [CSS](styles.css) and [JavaScript](script.js) are right here.
 
+The gallery imagery is from ASUS product renders and illustrates the models; finishes and configurations can differ from what the shop has. The self-hosted display/body fonts are open-source under the SIL Open Font License. The code is public; the shop's brand assets and product photography aren't a blanket reuse license.
+
 ## Before anyone calls this "launched"
 
 This is a **client-review concept**, not the approved production website. Pages are intentionally `noindex, nofollow`, with a restrictive `robots.txt`. Opening the GitHub Pages link is not client sign-off.

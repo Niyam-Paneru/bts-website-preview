@@ -1,10 +1,18 @@
-# BTS website — client preview
+# Best Tech Solutions — website preview
 
-Review build of the Best Tech Solutions public website in Mahendranagar, Nepal.
+A **multi-page computer-shop website** built for client review: laptop galleries, product pages, repair/IT services, shop information, and WhatsApp enquiries. Unlike a backend policy library, the HTML, CSS, JavaScript, and assets here are directly browseable.
 
-Live: **https://niyam-paneru.github.io/bts-website-preview/**
+[Open the preview](https://niyam-paneru.github.io/bts-website-preview/) · [Home page source](index.html). No imaginary checkout or invented stock numbers — computers are expensive enough already.
 
-This is a static client-review concept, not the production application. It is served directly from `main` with GitHub Pages. Every page is marked `noindex, nofollow`, and `robots.txt` disallows all crawlers until the client approves the design.
+**Preview locally** (Python):
+
+```bash
+python -m http.server 8765
+```
+
+Open `http://localhost:8765/`.
+
+This is a client-review concept, **not an approved production launch**. Pages are marked `noindex`; the WhatsApp enquiry flow does not write to a backend.
 
 ## Pages
 

@@ -1,6 +1,8 @@
 # Best Tech Solutions — website preview
 
-This is a website for a computer shop in Mahendranagar, Nepal. Not a mock API. Not a 400-line explanation of what a website *could* be. Actual pages.
+For once, a repo where you can click something and it opens an actual page.
+
+This is a website preview for a computer shop in Mahendranagar, Nepal: product galleries, services, shop information, and a way to ask about a laptop without pretending it's already in your cart.
 
 **[Walk around the preview](https://niyam-paneru.github.io/bts-website-preview/)**
 
@@ -15,7 +17,7 @@ It has a home page, a laptop catalogue, three product pages with image galleries
 | Product galleries and actual shop context | ASUS imagery illustrates the models; it does not certify local stock. |
 | Responsive navigation, gallery controls, skip link | The preview should work on a phone, not just in a desktop screenshot. |
 
-There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html).
+There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). Eight pages, no imaginary checkout.
 
 ## Open it locally
 
@@ -29,7 +31,7 @@ A little of the design work: cream/paper backgrounds, dark ink, self-hosted Fami
 
 The gallery imagery is from ASUS product renders and illustrates the models; finishes and configurations can differ from what the shop has. The self-hosted display/body fonts are open-source under the SIL Open Font License. The code is public; the shop's brand assets and product photography aren't a blanket reuse license.
 
-## Before anyone calls this "launched"
+## Before anyone calls this “launched”
 
 This is a **client-review concept**, not the approved production website. Pages are intentionally `noindex, nofollow`, with a restrictive `robots.txt`. Opening the GitHub Pages link is not client sign-off.
 

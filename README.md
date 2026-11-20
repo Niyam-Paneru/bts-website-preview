@@ -10,12 +10,12 @@ It has a home page, a laptop catalogue, three product pages with image galleries
 
 | Decision | Why |
 | --- | --- |
-| Prices say **On request** | The shop must confirm stock, configuration, and price. Fictional discounts don't count as features. |
-| WhatsApp enquiry instead of fake checkout | A checkout button without checkout is a rectangle with ambition. |
+| Prices say **On request** | The shop must confirm stock, configuration, and price. |
+| WhatsApp enquiry instead of fake checkout | A button that doesn't place an order shouldn't pretend to be checkout. |
 | Product galleries and actual shop context | ASUS imagery illustrates the models; it does not certify local stock. |
-| Responsive navigation, gallery controls, skip link | People should be able to use the site on their phones without a tiny-button obstacle course. |
+| Responsive navigation, gallery controls, skip link | The preview should work on a phone, not just in a desktop screenshot. |
 
-There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). I counted twice this time. The eighth page was not a surprise production launch.
+There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html).
 
 ## Open it locally
 

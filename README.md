@@ -1,8 +1,8 @@
 # Best Tech Solutions — website preview
 
-Most of my projects argue with invisible backend state. This one has visible laptops, a catalogue, and a WhatsApp enquiry button. Much easier to show to someone who doesn't want a lecture about timeout handling.
+Most of my projects require explaining a backend state machine. This one has laptops. Finally, something my non-programmer friends can look at without regretting asking what I do.
 
-It's a **client-review website preview** for a computer shop in Mahendranagar, Nepal, with galleries, services, and WhatsApp enquiries. It isn't an online checkout, so there's no magical “order placed” screen after you click a button.
+It's a client-review website preview for a computer shop in Mahendranagar, Nepal: a catalogue, galleries, services and direct WhatsApp enquiries. The shop confirms the actual stock and price; the website doesn't pretend to be an online checkout.
 
 **[Walk around the preview](https://niyam-paneru.github.io/bts-website-preview/)**
 
@@ -13,11 +13,11 @@ It has a home page, a laptop catalogue, three product pages with image galleries
 | Decision | Why |
 | --- | --- |
 | Prices say **On request** | The shop must confirm stock, configuration, and price. |
-| WhatsApp enquiry instead of fake checkout | Clicking “Buy” shouldn't submit an order to the kingdom of make-believe. |
+| WhatsApp enquiry instead of fake checkout | A button is not an inventory or order system. |
 | Product galleries and actual shop context | ASUS imagery illustrates the models; it does not certify local stock. |
 | Responsive navigation, gallery controls, skip link | The preview should work on a phone, not just in a desktop screenshot. |
 
-There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). Eight pages, zero imaginary payment processors. A very deliberate feature.
+There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). Eight pages, no unverified checkout. The shop handles the final sale.
 
 ## Open it locally
 

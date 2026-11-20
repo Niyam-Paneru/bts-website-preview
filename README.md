@@ -1,6 +1,6 @@
 # Best Tech Solutions — website preview
 
-Most of my repositories explain systems you can't see. This one has laptops you can actually look at. A welcome change for my README-writing muscles.
+Most of my projects argue with invisible backend state. This one has visible laptops, a catalogue, and a WhatsApp enquiry button. Much easier to show to someone who doesn't want a lecture about timeout handling.
 
 It's a **client-review website preview** for a computer shop in Mahendranagar, Nepal, with galleries, services, and WhatsApp enquiries. It isn't an online checkout, so there's no magical “order placed” screen after you click a button.
 
@@ -37,4 +37,3 @@ This is a **client-review concept**, not the approved production website. Pages 
 
 Still needed: final logo/photo assets, confirmed opening days and hours, service radius, domain/hosting, warranty copy, and client approval. The editable wider project lives privately in `bts-os`.
 
-The ASUS renders illustrate models, not guaranteed in-stock configurations. Any real availability must come from the shop.

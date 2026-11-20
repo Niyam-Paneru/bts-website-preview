@@ -8,12 +8,14 @@ It has a home page, a laptop catalogue, three product pages with image galleries
 
 ## Decisions that mattered
 
-- **No fake prices.** Prices show "On request." Stock and configurations need confirmation from the shop.
-- **No pretend checkout.** The WhatsApp enquiry is the contact path. A button that looks like checkout but does nothing is an excellent way to annoy somebody.
-- **Photos over stock-layout filler.** Product pages show ASUS product images; the about page includes real shop context.
-- **Readable on a phone.** Responsive navigation, focused image-gallery controls, and a skip-to-content link are part of the source.
+| Decision | Why |
+| --- | --- |
+| Prices say **On request** | The shop must confirm stock, configuration, and price. Fictional discounts don't count as features. |
+| WhatsApp enquiry instead of fake checkout | A checkout button without checkout is a rectangle with ambition. |
+| Product galleries and actual shop context | ASUS imagery illustrates the models; it does not certify local stock. |
+| Responsive navigation, gallery controls, skip link | People should be able to use the site on their phones without a tiny-button obstacle course. |
 
-There are seven main HTML pages: [home](index.html), [laptops](laptops.html), three model pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). Okay, that's eight. Counting pages is apparently also part of web development.
+There are eight main HTML pages: [home](index.html), [laptops](laptops.html), three product pages ([Vivobook](product-vivobook-15.html), [Zenbook](product-zenbook-14-oled.html), [TUF](product-tuf-gaming-f15.html)), [services](services.html), [about](about.html), and [contact](contact.html). I counted twice this time. The eighth page was not a surprise production launch.
 
 ## Open it locally
 
